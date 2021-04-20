@@ -46,10 +46,26 @@ function login() {
       </Head>
       <LoginContainer>
         <Logo src="/img/kakao-talk-logo.png" />
-        <EmailLogin>
-          <EmailInput placeholder="Email Address" />
-          <PasswordInput placeholder="Password" />
-          <LoginButton>Login</LoginButton>
+        <EmailLogin onSubmit={onSubmit}>
+          <EmailInput
+            placeholder="Email Address"
+            name="email"
+            type="text"
+            required={true}
+            value={email}
+            onChange={onChange}
+          />
+          <PasswordInput
+            placeholder="Password"
+            name="password"
+            type="password"
+            required={true}
+            value={password}
+            onChange={onChange}
+          />
+          <LoginButton type="submit" disabled={(!email, !password)}>
+            Login
+          </LoginButton>
         </EmailLogin>
         <GoogleLogin>
           <Button variant="outlined" onClick={signIn}>
@@ -88,7 +104,11 @@ const Logo = styled.img`
   margin-bottom: 50px;
 `;
 
-const EmailLogin = styled.form``;
+const EmailLogin = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const EmailInput = styled.input``;
 
