@@ -13,7 +13,7 @@ export default function Home() {
       </Head>
 
       {/* Header */}
-      <Header />
+      <Header title="친구" />
 
       {/* FriendList */}
       <MainContainer>

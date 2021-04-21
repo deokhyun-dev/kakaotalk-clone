@@ -4,10 +4,10 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 import { auth } from "../firebase";
 
-function Header() {
+function Header({ title }) {
   return (
     <Container>
-      <PageInfo>title</PageInfo>
+      <PageInfo>{title}</PageInfo>
       <IconContainer>
         <IconButtons>
           <SearchIcon />

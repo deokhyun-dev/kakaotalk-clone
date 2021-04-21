@@ -6,8 +6,8 @@ import styled from "styled-components";
 function setting() {
   return (
     <Container>
-      <Head />
-      <Header />
+      <Head></Head>
+      <Header title="더보기" />
       <h1>this is setting page</h1>
       <FooterContainer>
         <Footer />

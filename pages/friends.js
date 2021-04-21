@@ -2,9 +2,12 @@ import styled from "styled-components";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { db } from "../firebase";
 import FriendProfile from "../components/FriendProfile";
+import ExpandLessIcon from "@material-ui/icons/ExpandLess";
+import { useState, useEffect } from "react";
 
 function Friends() {
   const [userList] = useCollection(db.collection("users"));
+  const [friendNum, setFriendNum] = useState("");
 
   const showUsers = () => {
     if (userList) {
@@ -12,13 +15,20 @@ function Friends() {
         <FriendProfile
           key={user.id}
           id={user.id}
-          user={user.data().user}
+          users={user.data().user}
           email={user.data().email}
           photoURL={user.photoURL}
         />
       ));
     }
   };
+  useEffect(() => {
+    db.collection("users")
+      .get()
+      .then(function (querySnapshot) {
+        setFriendNum(querySnapshot.size);
+      });
+  }, [userList]);
 
   return (
     <Container>
@@ -30,8 +40,8 @@ function Friends() {
         <MyInfoDesc>상태메세지</MyInfoDesc>
       </MyInfo>
       <MiddleInfo>
-        <span>친구 330</span>
-        <span>^</span>
+        <span>친구 {friendNum}</span>
+        <ExpandLessIcon />
       </MiddleInfo>
       <FriendList>
         <MyFriend>
