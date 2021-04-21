@@ -26,7 +26,8 @@ function login() {
       if (newAccount) {
         data = await auth.createUserWithEmailAndPassword(email, password);
       } else {
-        data = await auth.signinWithEmailAndPassword(email, password);
+        // data = await auth.signinWithEmailAndPassword(email, password);
+        auth.signInWithEmailAndPassword(email, password);
       }
     } catch (error) {
       setError(error.message);

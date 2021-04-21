@@ -1,7 +1,25 @@
 import styled from "styled-components";
-import { Avatar } from "@material-ui/core";
+import { useCollection } from "react-firebase-hooks/firestore";
+import { db } from "../firebase";
+import FriendProfile from "../components/FriendProfile";
 
 function Friends() {
+  const [userList] = useCollection(db.collection("users"));
+
+  const showUsers = () => {
+    if (userList) {
+      return userList.docs.map((user) => (
+        <FriendProfile
+          key={user.id}
+          id={user.id}
+          user={user.data().user}
+          email={user.data().email}
+          photoURL={user.photoURL}
+        />
+      ));
+    }
+  };
+
   return (
     <Container>
       <MyInfo>
@@ -17,7 +35,8 @@ function Friends() {
       </MiddleInfo>
       <FriendList>
         <MyFriend>
-          <FriendProfile src="/img/kakao-talk-logo.png" />
+          {/* <FriendProfile src="/img/kakao-talk-logo.png" /> */}
+          {showUsers()}
         </MyFriend>
       </FriendList>
     </Container>
@@ -84,9 +103,7 @@ const MiddleInfo = styled.div`
 
 const FriendList = styled.div``;
 
-const MyFriend = styled.div``;
-
-const FriendProfile = styled.img`
-  width: 60px;
-  height: 60px;
+const MyFriend = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
