@@ -63,13 +63,20 @@ function login() {
             value={password}
             onChange={onChange}
           />
-          <LoginButton type="submit" disabled={(!email, !password)}>
-            Login
-          </LoginButton>
+          <LoginButton
+            type="submit"
+            disabled={(!email, !password)}
+            value={newAccount ? "가입하기" : "로그인"}
+          />
+
+          {error}
+          <ToggleContainer onClick={toggleAccount}>
+            {newAccount ? "로그인 하기" : "가입하기"}
+          </ToggleContainer>
         </EmailLogin>
         <GoogleLogin>
           <Button variant="outlined" onClick={signIn}>
-            Sign in with Google
+            Google 로그인
           </Button>
         </GoogleLogin>
       </LoginContainer>
@@ -97,6 +104,8 @@ const LoginContainer = styled.div`
   border-radius: 5px;
   box-shadow: 0px 4px 10px -3px rgba(0, 0, 0, 0.7);
 `;
+
+const ToggleContainer = styled.span``;
 
 const Logo = styled.img`
   height: 100px;
