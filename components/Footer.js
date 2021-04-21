@@ -3,12 +3,18 @@ import PersonIcon from "@material-ui/icons/Person";
 import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
 import LiveHelpIcon from "@material-ui/icons/LiveHelp";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import { useRouter } from "next/router";
 
 function Footer() {
+  const router = useRouter();
   return (
     <Container>
       <Friends>
-        <IconButtons>
+        <IconButtons
+          onClick={() => {
+            router.push("/");
+          }}
+        >
           <PersonIcon />
         </IconButtons>
       </Friends>
@@ -24,7 +30,11 @@ function Footer() {
         </IconButtons>
       </HashEvent>
       <More>
-        <IconButtons>
+        <IconButtons
+          onClick={() => {
+            router.push("/setting");
+          }}
+        >
           <MoreHorizIcon />
         </IconButtons>
       </More>
@@ -47,7 +57,7 @@ const Container = styled.div`
   background-color: #964b00;
 `;
 
-const IconButtons = styled.button`
+const IconButtons = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

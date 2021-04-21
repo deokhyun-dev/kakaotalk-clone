@@ -35,7 +35,7 @@ function login() {
 
   const toggleAccount = () => setNewAccount((prev) => !prev);
   const signIn = () => {
-    auth.signInWithPopup(provider).catch(alert);
+    auth.signInWithPopup(provider).catch(error);
   };
 
   return (
@@ -105,7 +105,11 @@ const LoginContainer = styled.div`
   box-shadow: 0px 4px 10px -3px rgba(0, 0, 0, 0.7);
 `;
 
-const ToggleContainer = styled.span``;
+const ToggleContainer = styled.span`
+  font-size: 12px;
+  opacity: 0.6;
+  margin-top: 5px;
+`;
 
 const Logo = styled.img`
   height: 100px;
@@ -119,10 +123,42 @@ const EmailLogin = styled.form`
   align-items: center;
 `;
 
-const EmailInput = styled.input``;
+const EmailInput = styled.input`
+  margin-bottom: 5px;
+  height: 30px;
+  border: none;
+  border-bottom: 1px solid #ffe812;
 
-const PasswordInput = styled.input``;
+  :active,
+  :focus {
+    outline-color: none;
+    outline-width: 0;
+  }
+`;
 
-const LoginButton = styled(Button)``;
+const PasswordInput = styled.input`
+  margin-bottom: 5px;
+  height: 30px;
+  border: none;
+  border-bottom: 1px solid #ffe812;
 
-const GoogleLogin = styled.div``;
+  :active,
+  :focus {
+    outline-color: none;
+    outline-width: 0;
+  }
+`;
+
+const LoginButton = styled.input`
+  width: 100%;
+  border-radius: 6px;
+  height: 30px;
+  margin: 5px;
+  color: white;
+  background-color: #964b00;
+  border: none;
+`;
+
+const GoogleLogin = styled.div`
+  margin-top: 10px;
+`;

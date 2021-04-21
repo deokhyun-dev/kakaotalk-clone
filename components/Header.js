@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import SearchIcon from "@material-ui/icons/Search";
 import SettingsIcon from "@material-ui/icons/Settings";
-import PersonAddIcon from "@material-ui/icons/PersonAdd";
+import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
+import { auth } from "../firebase";
 
 function Header() {
   return (
@@ -11,8 +12,8 @@ function Header() {
         <IconButtons>
           <SearchIcon />
         </IconButtons>
-        <IconButtons>
-          <PersonAddIcon />
+        <IconButtons onClick={() => auth.signOut()}>
+          <MeetingRoomIcon />
         </IconButtons>
         <IconButtons>
           <SettingsIcon />

@@ -16,7 +16,9 @@ export default function Home() {
       <Header />
 
       {/* FriendList */}
-      <Friends />
+      <MainContainer>
+        <Friends />
+      </MainContainer>
 
       {/* Footer */}
       <Footer />
@@ -26,4 +28,11 @@ export default function Home() {
 
 const Container = styled.div`
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const MainContainer = styled.div`
+  flex: 1;
 `;
