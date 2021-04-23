@@ -1,11 +1,14 @@
 import styled from "styled-components";
 import { useCollection } from "react-firebase-hooks/firestore";
-import { db } from "../firebase";
+import { db, auth } from "../firebase";
 import FriendProfile from "../components/FriendProfile";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import { useState, useEffect } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import PersonIcon from "@material-ui/icons/Person";
 
 function Friends() {
+  const [users] = useAuthState(auth);
   const [userList] = useCollection(db.collection("users"));
   const [friendNum, setFriendNum] = useState("");
 
@@ -33,9 +36,32 @@ function Friends() {
   return (
     <Container>
       <MyInfo>
-        <MyInfoLeft>
+        {/* <MyInfoLeft>
           <MyProfile src="/img/kakao-talk-logo.png" />
-          <MyInfoName>조준형</MyInfoName>
+          <MyInfoName>
+            {users.email[0]}
+            {users.email[1]}
+            {users.email[2]}
+          </MyInfoName>
+          <MyInfoEmail>{users.email}</MyInfoEmail>
+        </MyInfoLeft>
+        <MyInfoDesc>상태메세지</MyInfoDesc> */}
+        <MyInfoLeft>
+          {users.photoURL ? (
+            <MyProfile src={users.photoURL} />
+          ) : (
+            <UserAvatarNone>
+              <NoAvatar />
+            </UserAvatarNone>
+          )}
+          <MyInfoContainer>
+            <MyInfoName>
+              {users.email[0]}
+              {users.email[1]}
+              {users.email[2]}
+            </MyInfoName>
+            <MyInfoEmail>{users.email}</MyInfoEmail>
+          </MyInfoContainer>
         </MyInfoLeft>
         <MyInfoDesc>상태메세지</MyInfoDesc>
       </MyInfo>
@@ -66,7 +92,7 @@ const MyInfo = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 12px;
+  padding: 10px;
   border-bottom: 1px solid lightgray;
   margin-bottom: 10px;
 `;
@@ -77,17 +103,42 @@ const MyInfoLeft = styled.div`
   align-items: center;
 `;
 
+const MyInfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const MyProfile = styled.img`
   margin-right: 10px;
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   border-radius: 35%;
   border: 1px solid whitesmoke;
 `;
 
+const UserAvatarNone = styled.div`
+  margin-right: 10px;
+  width: 70px;
+  height: 70px;
+  border-radius: 35%;
+  border: 1px solid whitesmoke;
+  object-fit: contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: whitesmoke;
+  background-color: #a7b9cb;
+`;
+
+const NoAvatar = styled(PersonIcon)``;
+
 const MyInfoName = styled.span`
-  font-size: 20px;
-  margin-left: 5px;
+  font-size: 22px;
+  flex: 1;
+`;
+
+const MyInfoEmail = styled.span`
+  opacity: 0.5;
 `;
 
 const MyInfoDesc = styled.span`
