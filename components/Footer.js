@@ -19,7 +19,11 @@ function Footer() {
         </IconButtons>
       </Friends>
       <Chats>
-        <IconButtons>
+        <IconButtons
+          onClick={() => {
+            router.push("/chatPage");
+          }}
+        >
           <ChatBubbleIcon />
         </IconButtons>
       </Chats>

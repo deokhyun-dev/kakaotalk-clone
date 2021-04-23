@@ -36,16 +36,6 @@ function Friends() {
   return (
     <Container>
       <MyInfo>
-        {/* <MyInfoLeft>
-          <MyProfile src="/img/kakao-talk-logo.png" />
-          <MyInfoName>
-            {users.email[0]}
-            {users.email[1]}
-            {users.email[2]}
-          </MyInfoName>
-          <MyInfoEmail>{users.email}</MyInfoEmail>
-        </MyInfoLeft>
-        <MyInfoDesc>상태메세지</MyInfoDesc> */}
         <MyInfoLeft>
           {users.photoURL ? (
             <MyProfile src={users.photoURL} />
