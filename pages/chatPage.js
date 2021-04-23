@@ -72,7 +72,9 @@ const Container = styled.div`
   height: 100vh;
 `;
 
-const ChatContainer = styled.div``;
+const ChatContainer = styled.div`
+  flex: 1;
+`;
 
 const CreateChatButton = styled.div`
   background-color: whitesmoke;

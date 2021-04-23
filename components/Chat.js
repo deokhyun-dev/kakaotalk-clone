@@ -19,7 +19,7 @@ function Chat({ id, users }) {
   };
 
   return (
-    <Container>
+    <Container onClick={enterChat}>
       <ChatInfo>
         <ChatInfoLeft>
           {recipent ? (
@@ -30,15 +30,11 @@ function Chat({ id, users }) {
             </ChatAvatarNone>
           )}
           <ChatInfoContainer>
-            <ChatInfoName>
-              {recipentEmail[0][0]}
-              {recipentEmail[0][1]}
-              {recipentEmail[0][2]}
-            </ChatInfoName>
             <ChatInfoEmail>{recipentEmail}</ChatInfoEmail>
+            <LastChat>오늘 뭐했으?</LastChat>
           </ChatInfoContainer>
         </ChatInfoLeft>
-        <ChatInfoDesc>상태메세지</ChatInfoDesc>
+        <ChatInfoDesc>10:58</ChatInfoDesc>
       </ChatInfo>
     </Container>
   );
@@ -46,22 +42,67 @@ function Chat({ id, users }) {
 
 export default Chat;
 
-const Container = styled.div``;
+const Container = styled.div`
+  /* display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin: 12px 0px; */
+  margin-top: 10px;
+`;
 
-const ChatInfo = styled.div``;
+const ChatInfo = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+`;
 
-const ChatInfoLeft = styled.div``;
+const ChatInfoLeft = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
 
-const ChatProfile = styled.img``;
+const ChatProfile = styled.img`
+  margin-right: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 35%;
+  border: 1px solid whitesmoke;
+`;
 
-const ChatAvatarNone = styled.div``;
+const ChatAvatarNone = styled.div`
+  margin-right: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 35%;
+  border: 1px solid whitesmoke;
+  object-fit: contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: whitesmoke;
+  background-color: #a7b9cb;
+`;
 
 const NoAvatar = styled(PersonIcon)``;
 
-const ChatInfoContainer = styled.div``;
-
-const ChatInfoName = styled.span``;
+const ChatInfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const ChatInfoEmail = styled.span``;
 
-const ChatInfoDesc = styled.span``;
+const LastChat = styled.span`
+  opacity: 0.6;
+  font-size: 15px;
+`;
+
+const ChatInfoDesc = styled.span`
+  opacity: 0.5;
+  font-size: 10px;
+`;
