@@ -4,9 +4,11 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import PersonIcon from "@material-ui/icons/Person";
 import { useAuthState } from "react-firebase-hooks/auth";
 import getRecipientEmail from "../utils/getRecipientEmail";
+import { useRouter } from "next/router";
 
 function Chat({ id, users }) {
   const [user] = useAuthState(auth);
+  const router = useRouter();
 
   const [recipientSnapshot] = useCollection(
     db.collection("users").where("email", "==", getRecipientEmail(users, user))
