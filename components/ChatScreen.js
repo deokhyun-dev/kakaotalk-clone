@@ -1,12 +1,43 @@
 import styled from "styled-components";
-import { auth } from "../firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useCollection } from "react-firebase-hooks/firestore";
+import { db } from "../firebase";
+import { useRouter } from "next/router";
+import Message from "./Message";
 
 function ChatScreen({ chat, messages }) {
-  const [user] = useAuthState(auth);
+  const router = useRouter();
+  const [messageSnapshot] = useCollection(
+    db
+      .collection("chats")
+      .doc(router.query.id)
+      .collection("messages")
+      .orderBy("timestamp", "asc")
+  );
+
+  const showMessage = () => {
+    if (messageSnapshot) {
+      return messageSnapshot.docs.map((message) => (
+        <Message
+          key={message.id}
+          user={message.data().user}
+          message={{
+            ...message.data(),
+            timestamp: message.data().timestamp?.toDate().getTime(),
+          }}
+        />
+      ));
+    } else {
+      return JSON.parse(messages).map((message) => (
+        <Message key={message.id} user={message.user} message={message} />
+      ));
+    }
+  };
   return (
     <Container>
-      <h1>ChatScreen</h1>
+      <MessageContainer>
+        {showMessage()}
+        <EndOfMessage />
+      </MessageContainer>
     </Container>
   );
 }
@@ -26,3 +57,7 @@ const Container = styled.div`
     scrollbar-width: none;
   }
 `;
+
+const MessageContainer = styled.div``;
+
+const EndOfMessage = styled.div``;

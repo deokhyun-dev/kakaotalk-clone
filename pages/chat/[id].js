@@ -10,7 +10,6 @@ import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 import ChatScreen from "../../components/ChatScreen";
 import SendIcon from "@material-ui/icons/Send";
 import { useState } from "react";
-import { useCollection } from "react-firebase-hooks/firestore";
 import firebase from "firebase";
 
 function Chat({ chat, messages }) {
