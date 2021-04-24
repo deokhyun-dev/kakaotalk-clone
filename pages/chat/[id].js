@@ -9,15 +9,21 @@ import { useRouter } from "next/router";
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 import ChatScreen from "../../components/ChatScreen";
 import SendIcon from "@material-ui/icons/Send";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import firebase from "firebase";
 
 function Chat({ chat, messages }) {
   const [user] = useAuthState(auth);
   const router = useRouter();
-
+  const endOfMessageRef = useRef(null);
   const [input, setInput] = useState("");
 
+  const scrollToBottom = () => {
+    endOfMessageRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
   const sendMessage = (e) => {
     e.preventDefault();
 
@@ -36,6 +42,7 @@ function Chat({ chat, messages }) {
     });
 
     setInput("");
+    scrollToBottom();
   };
   return (
     <Container>
@@ -54,7 +61,11 @@ function Chat({ chat, messages }) {
         </HeaderIcons>
       </ChatHeader>
       <ChatContainer>
-        <ChatScreen chat={chat} messages={messages} />
+        <ChatScreen
+          chat={chat}
+          messages={messages}
+          endOfMessageRef={endOfMessageRef}
+        />
       </ChatContainer>
       <ChatInputForm>
         <ChatInput

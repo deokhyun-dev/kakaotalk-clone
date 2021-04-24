@@ -120,7 +120,10 @@ const UserAvatarNone = styled.div`
   background-color: #a7b9cb;
 `;
 
-const NoAvatar = styled(PersonIcon)``;
+const NoAvatar = styled(PersonIcon)`
+  width: 50px;
+  height: 50px;
+`;
 
 const MyInfoName = styled.span`
   font-size: 22px;

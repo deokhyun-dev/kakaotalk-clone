@@ -4,7 +4,7 @@ import { db } from "../firebase";
 import { useRouter } from "next/router";
 import Message from "./Message";
 
-function ChatScreen({ chat, messages }) {
+function ChatScreen({ chat, messages, endOfMessageRef }) {
   const router = useRouter();
   const [messageSnapshot] = useCollection(
     db
@@ -14,11 +14,18 @@ function ChatScreen({ chat, messages }) {
       .orderBy("timestamp", "asc")
   );
 
+  const scrollToBottom = () => {
+    endOfMessageRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
   const showMessage = () => {
     if (messageSnapshot) {
       return messageSnapshot.docs.map((message) => (
         <Message
           key={message.id}
+          chat={chat}
           user={message.data().user}
           message={{
             ...message.data(),
@@ -28,15 +35,22 @@ function ChatScreen({ chat, messages }) {
       ));
     } else {
       return JSON.parse(messages).map((message) => (
-        <Message key={message.id} user={message.user} message={message} />
+        <Message
+          key={message.id}
+          user={message.user}
+          message={message}
+          chat={chat}
+        />
       ));
     }
+    scrollToBottom();
   };
+
   return (
     <Container>
       <MessageContainer>
         {showMessage()}
-        <EndOfMessage />
+        <EndOfMessage ref={endOfMessageRef} />
       </MessageContainer>
     </Container>
   );
@@ -58,6 +72,11 @@ const Container = styled.div`
   }
 `;
 
-const MessageContainer = styled.div``;
+const MessageContainer = styled.div`
+  margin-top: 10px;
+  padding: 4px;
+`;
 
-const EndOfMessage = styled.div``;
+const EndOfMessage = styled.div`
+  margin-bottom: 150px;
+`;
